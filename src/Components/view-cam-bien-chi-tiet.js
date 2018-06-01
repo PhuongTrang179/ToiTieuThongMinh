@@ -1,7 +1,10 @@
 import React, {Component} from 'react';
-import {View, Text, TouchableOpacity,Image, ScrollView, StyleSheet, ImageBackground} from 'react-native';
+import {View, Text, TouchableOpacity,Image, ScrollView, StyleSheet, ImageBackground, Alert} from 'react-native';
+import {firebaseApp} from './../screens/FirebaseConfig';
+import moment from 'moment';
 
 export default class CamBienChiTiet extends Component{
+
 
 	kiemtra=(dau,cuoi, socansosanh)=>{
 		if (parseFloat(socansosanh) < parseFloat(dau))
@@ -14,33 +17,53 @@ export default class CamBienChiTiet extends Component{
 		  return (<Text>{socansosanh}</Text>);
 	  }
 
+	  ngayBatDauTheoDoi = (ngay)=>{
+		let today = moment(new Date()).format('YYYY-MM-DD');
+		let diff = moment(today,"YYYY-MM-DD").diff(moment(ngay,"YYYY-MM-DD"), 'days');
+		return diff;
+	}
+
+
 	render(){
+		const { navigate } = this.props.navigation;
 		return(
 			<ScrollView style={css.container}>
 				<View style={css.col_header}>
 						<Image source={{ uri: this.props.hinhanhcambien }} style={css.anh_dai_dien}/>
 						<Text style={css.ten_cam_bien}>{this.props.tencambien}</Text>
-						<Text  style={css.ngay_pin}>Theo dõi: 15 ngày | Pin: {this.props.pin}%</Text>
+						<Text  style={css.ngay_pin}>Theo dõi: {this.ngayBatDauTheoDoi(this.props.ngaybatdautheodoi)} ngày | Pin: {this.props.pin}%</Text>
 					<View style={css.div_thao_tac}>
-						<TouchableOpacity>
+						<TouchableOpacity
+							onPress={() => {
+							this.props.navigation.navigate("ManHinh_CaiDatCamBien", {keycambien:this.props.keycambien,tencambien:this.props.tencambien,navigation:this.props.navigation,});
+							}}>
 							<View style={css.col_thao_tac} >
 								<Image source={require('./../icons/settings.png')} style={css.anh_thao_tac}/>
 								<Text style={css.ten_thao_tac}>Cài đặt</Text>
 							</View>
 						</TouchableOpacity>
-						<TouchableOpacity>
+						<TouchableOpacity
+							onPress={() => {
+							navigate("ManHinh_ThayDoiCayTrong", {keycambien:this.props.keycambien});
+							}}>
 							<View style={css.col_thao_tac} >
 								<Image source={require('./../icons/plant.png')} style={css.anh_thao_tac}/>
 								<Text style={css.ten_thao_tac}>Cây trồng</Text>
 							</View>
 						</TouchableOpacity>
-						<TouchableOpacity>
+						<TouchableOpacity
+							onPress={() => {
+							this.props.navigation.navigate("ManHinh_DatLichTuoi", {keycambien:this.props.keycambien, tencambien:this.props.tencambien, emailnguoidung:this.props.emailnguoidung});
+							}}>
 							<View style={css.col_thao_tac} >
 								<Image source={require('./../icons/icon_calendar.png')} style={css.anh_thao_tac}/>
 								<Text style={css.ten_thao_tac}>Lịch tưới</Text>
 							</View>
 						</TouchableOpacity>
-						<TouchableOpacity>
+						<TouchableOpacity
+							onPress={() => {
+							this.props.navigation.navigate("ManHinh_ReportThongSo", {keycambien:this.props.keycambien, tencambien:this.props.tencambien});
+							}}>
 							<View style={css.col_thao_tac} >
 								<Image source={require('./../icons/report.png')} style={css.anh_thao_tac}/>
 								<Text style={css.ten_thao_tac}>Report</Text>
@@ -95,7 +118,7 @@ export default class CamBienChiTiet extends Component{
 						<View style={css.col_ten_thong_so}>
 							<View style={css.sub_col_ten_thong_so}>
 								<Image source={require('./../icons/dat.png')} style={css.anh_thong_so}/>
-		                        <Text  style={css.ten_thong_so}>Độ màu mỡ</Text>
+		                        <Text  style={css.ten_thong_so}>EC</Text>
 							</View>
 						</View>
 						<View style={css.col_so_lieu}>

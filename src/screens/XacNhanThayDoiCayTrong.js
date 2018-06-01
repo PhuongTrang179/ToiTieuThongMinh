@@ -12,9 +12,9 @@ import {
 import { firebaseApp } from "./FirebaseConfig.js";
 import CayTrongChiTiet from "./../Components/view-cay-trong-chi-tiet.js";
 
-export default class XacNhanThemCayTrong extends Component {
+export default class XacNhanThayDoiCayTrong extends Component {
   static navigationOptions = {
-    title: "Thêm cây trồng",
+    title: "Thay đổi cây trồng",
     headerTitleStyle: {
       textAlign: "center",
       alignSelf: "center",
@@ -30,10 +30,13 @@ export default class XacNhanThemCayTrong extends Component {
     this.state = {
       mang: [],
       refresh: false,
+      keycambien: this.props.navigation.state.params.keycambien,
+      keycaytrong:  this.props.navigation.state.params.keycaytrong ,
     };
   }
   
-  layDuLieuCayTrong = (key)=>{
+  layDuLieuCayTrong = ()=>{
+    var key = this.props.navigation.state.params.keycaytrong ;
     var x = [];
     firebaseApp.database().ref('caytrong/'+key).on('value', function(snapshot) {
         x.push(<CayTrongChiTiet 
@@ -56,7 +59,9 @@ export default class XacNhanThemCayTrong extends Component {
   }
 
 
-  themCayTrong = (keycambien, keycaytrong, emailnguoidung)=>{
+  themCayTrong = ()=>{
+      var keycambien = this.state.keycambien;
+      var keycaytrong = this.state.keycaytrong;
     const {navigation, position} = this.props;
     Alert.alert(
       'Thông báo',
@@ -77,7 +82,14 @@ export default class XacNhanThemCayTrong extends Component {
               hinhanhcambien: snapshot.val().hinhanhcaytrong,
               ngaybatdautheodoi: new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate()
             }).then(()=>{
-              navigation.navigate('ManHinh_Home', {emailnguoidung:emailnguoidung})
+                Alert.alert(
+                    'Thông báo',
+                    'Thay đổi cây trồng thành công',
+                    [
+                      {text: 'OK', onPress: () => navigation.goBack()},
+                    ],
+                    { cancelable: false }
+                  )              
             })
             .catch(function(error) {
               Alert.alert(
@@ -99,14 +111,11 @@ export default class XacNhanThemCayTrong extends Component {
   }
 
   render() {
-    var a = this.props.navigation.state.params.keycaytrong ;
-    var b = this.props.navigation.state.params.keycambien ;
-    var emailnguoidung= this.props.navigation.state.params.emailnguoidung;
     return (
       <ScrollView>
-        {this.layDuLieuCayTrong(a)}
+        {this.layDuLieuCayTrong()}
         <TouchableOpacity style={css.btn}
-          onPress={() => {this.themCayTrong(b,a, emailnguoidung)}}
+          onPress={() => {this.themCayTrong()}}
         >
           <Text style={css.btn_text}>Chọn</Text>
         </TouchableOpacity>

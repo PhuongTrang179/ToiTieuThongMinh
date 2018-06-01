@@ -10,9 +10,8 @@ import {
   Alert
 } from "react-native";
 import { firebaseApp } from "./FirebaseConfig.js";
-import CayTrong from "./../Components/view-danh-sach-chon-cay-trong.js";
 
-export default class ThemCayTrong extends Component {
+export default class ThayDoiCayTrong extends Component {
   static navigationOptions = {
     title: "Chọn cây trồng",
     headerTitleStyle: {
@@ -29,7 +28,8 @@ export default class ThemCayTrong extends Component {
     super(props);
     this.state = {
       mang: [],
-      refresh: false
+      refresh: false,
+      keycambien: this.props.navigation.state.params.keycambien,
     };
   }
 
@@ -50,49 +50,17 @@ export default class ThemCayTrong extends Component {
       });
   }
 
-  keyExtractor = item => item.id;
-  a = () => {
-    this.setState({
-      refresh: true
-    });
-
-    firebaseApp
-      .database()
-      .ref(`caytrong`)
-      .on("value", snapshot => {
-        let dl = [];
-        snapshot.forEach(function(data) {
-          dl.push({
-            id: data.key,
-            tencaytrong: data.val().tencaytrong,
-            anhcaytrong: data.val().hinhanhcaytrong
-          });
-        });
-        this.setState({
-          mang: dl,
-          refresh: false
-        });
-      });
-  };
-
   DanhSachCayTrong() {
     if (this.state.mang.length > 0) {
       return (
-        <View>
-          <View style={{ paddingLeft: 5, margin: 5 }}>
-            <Text>Danh sách cây trồng</Text>
-          </View>
           <View style={{ backgroundColor: "white" }}>
             <FlatList
-              refreshing={this.state.refresh}
-              onRefresh={() => this.a}
               data={this.state.mang}
               extraData={this.state}
               keyExtractor={this.keyExtractor}
               renderItem={this.renderItemCayTrong.bind(this)}
             />
           </View>
-        </View>
       );
     }
     return null;
@@ -100,14 +68,32 @@ export default class ThemCayTrong extends Component {
 
   renderItemCayTrong = ({ item }) => {
     return (
-      <CayTrong
-        keycambien={this.props.navigation.state.params.keycambien}
-        keycaytrong={item.id}
-        tencaytrong={item.tencaytrong}
-        anhcaytrong={item.anhcaytrong}
-        navigation={this.props.navigation}
-        emailnguoidung={this.props.navigation.state.params.emailnguoidung}
-      />
+      <TouchableOpacity
+         onPress={() => {
+          this.props.navigation.navigate("ManHinh_XacNhanThayDoiCayTrong", {
+            keycaytrong:item.id,
+            keycambien:this.state.keycambien,
+            
+            });
+        }}
+      >
+        <View
+          style={{
+            flex: 1,
+            flexDirection: "row",
+            padding: 5,
+            borderBottomWidth: 1,
+            borderColor: "#E0E0E0"
+          }}
+        >
+          <View style={{ paddingRight: 5, paddingLeft: 5 }}>
+            <Image source={{ uri: item.anhcaytrong }} style={css.anh} />
+          </View>
+          <View style={{ justifyContent: "center", alignItems: "center" }}>
+            <Text> {item.tencaytrong}</Text>
+          </View>
+        </View>
+      </TouchableOpacity>
     );
   };
 
@@ -122,6 +108,11 @@ export default class ThemCayTrong extends Component {
 
 var css = StyleSheet.create({
   container: {
-    flexDirection: "column"
+	  flexDirection: "column"
+  },
+  anh: {
+    width: 40,
+    height: 40,
+    borderRadius: 50
   }
 });

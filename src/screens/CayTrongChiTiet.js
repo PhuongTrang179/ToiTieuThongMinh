@@ -21,7 +21,8 @@ export default class CayTrongChiTiet extends Component {
       fontFamily: "MuseoSansRounded-300",
       fontWeight: "300",
       justifyContent: "space-between"
-    }
+    },
+    headerRight: (<View></View>)
   };
 
   constructor(props) {

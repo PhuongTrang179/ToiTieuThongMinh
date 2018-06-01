@@ -35,7 +35,7 @@ export default class CamBienHoatDong extends Component {
     return (
       <TouchableOpacity
         onPress={() => {
-          this.props.navigation.navigate("ManHinh_Detail", {keycambien:this.props.keycambien});
+          this.props.navigation.navigate("ManHinh_Detail", {keycambien:this.props.keycambien, emailnguoidung:this.props.emailnguoidung});
         }}>
         <View style={css.subcontainer}>
           <View style={css.subleft}>
@@ -83,7 +83,7 @@ export default class CamBienHoatDong extends Component {
                     style={css.icon}
                   />
                   <View style={css.col_flex}>
-                    <Text style={css.giatri}>Độ màu mỡ: {this.kiemtra(this.props.domaumo)}</Text>
+                    <Text style={css.giatri}>EC: {this.kiemtra(this.props.domaumo)}</Text>
                   </View>
                 </View>
               </View>

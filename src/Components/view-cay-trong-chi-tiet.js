@@ -81,7 +81,7 @@ export default class CayTrongChiTiet extends Component {
         </View>
         <View style={css.thongtincaytrong}>
           <View style={css.subleft}>
-            <Text>Độ màu mỡ</Text>
+            <Text>EC</Text>
           </View>
           <View style={css.subright}>
             <Text>{this.props.domaumo} (µS/cm)</Text>

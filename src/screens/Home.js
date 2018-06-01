@@ -87,7 +87,6 @@ export default class Home extends Component {
             });
             this.setState({mang:dl, chuacodulieu:chuacodl});
           })
-          
       }
 
       keyExtractor = (item) => item.id;

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { View, Text, TouchableOpacity,TextInput,StyleSheet, ImageBackground, Alert} from 'react-native';
+import { View, Text, TouchableOpacity,TextInput,StyleSheet, ImageBackground, Alert, AsyncStorage} from 'react-native';
 import {firebaseApp} from './FirebaseConfig.js';
 
 export default class Login extends Component{
@@ -11,11 +11,35 @@ export default class Login extends Component{
 			pass:'',
 		}
 	}
+	
+	saveUser = async()=>{
+		try {
+			await AsyncStorage.setItem("@MyEmail:key", this.state.email);
+		  } catch (error) {
+			console.log(error);
+		  }
+	}
 
+	getUser = async() =>{
+		try {
+			const value = await AsyncStorage.getItem('@MyEmail:key');
+			if (value !== null){
+				this.props.navigation.navigate('TabBar', {emailnguoidung:value});
+			}
+		  } catch (error) {
+			console.log(error);
+		  }
+	}
+
+	componentDidMount() {
+		this.getUser();
+	}
+	
 	dangNhap(){
 		firebaseApp.auth().signInWithEmailAndPassword(this.state.email,this.state.pass )
 		.then(()=>{
-			this.props.navigation.navigate('TabBar', {emailnguoidung:this.state.email})
+			this.saveUser();
+			this.props.navigation.navigate('TabBar', {emailnguoidung:this.state.email});
 		})
 		.catch(function(error) {
 			Alert.alert(

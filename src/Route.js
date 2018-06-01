@@ -7,9 +7,17 @@ import User from './screens/User.js';
 import Menu from './screens/Menu.js';
 import Plant from './screens/Plant.js';
 import Login from './screens/Login.js';
+import Loading from './screens/Loading.js';
 import ThemCayTrong from './screens/ThemCayTrongCamBien.js';
 import XacNhanThemCayTrong from './screens/XacNhanThemCayTrong.js';
 import CayTrongChiTiet from './screens/CayTrongChiTiet.js';
+import CaiDatCamBien from './screens/CaiDatCamBien.js';
+import ThayDoiCayTrong from './screens/ThayDoiCayTrong.js';
+import DatLichTuoi from './screens/DatLichTuoi.js';
+import ReportThongSo from './screens/ReportThongSo.js';
+import DatLichTuoiChiTiet from './screens/DatLichTuoiChiTiet.js';
+import TuyChinhGioTuoi from './screens/TuyChinhGioTuoi.js';
+import XacNhanThayDoiCayTrong from './screens/XacNhanThayDoiCayTrong.js';
 
 export const HomeStack = StackNavigator({
 	ManHinh_Home:{
@@ -28,8 +36,32 @@ export const HomeStack = StackNavigator({
 	ManHinh_XacNhanThemCayTrong:{
 		screen: XacNhanThemCayTrong
 	},
+	ManHinh_CaiDatCamBien:{
+		screen: CaiDatCamBien
+	},
+	ManHinh_ThayDoiCayTrong:{
+		screen: ThayDoiCayTrong
+	},
+	ManHinh_DatLichTuoi:{
+		screen: DatLichTuoi
+	},
+	ManHinh_ReportThongSo:{
+		screen: ReportThongSo
+	},
+	ManHinh_DatLichTuoiChiTiet:{
+		screen: DatLichTuoiChiTiet
+	},
+	ManHinh_TuyChinhGioTuoi:{
+		screen: TuyChinhGioTuoi
+	},
+	ManHinh_XacNhanThayDoiCayTrong:{
+		screen: XacNhanThayDoiCayTrong
+	},
 }
 );
+
+
+
 
 export const PlantStack = StackNavigator({
 	ManHinh_Plant:{
@@ -116,6 +148,9 @@ export const TabBar = TabNavigator({
 
 
 export const LoginStack = StackNavigator({
+	Loading:{
+		screen: Loading,
+	},
 	ManHinh_Login:{
 		screen: Login,
 	},
