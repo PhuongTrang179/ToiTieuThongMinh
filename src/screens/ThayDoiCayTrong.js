@@ -17,7 +17,7 @@ export default class ThayDoiCayTrong extends Component {
     headerTitleStyle: {
       textAlign: "center",
       alignSelf: "center",
-      fontFamily: "MuseoSansRounded-300",
+      //fontFamily: "MuseoSansRounded-300",
       fontWeight: "300",
       justifyContent: "space-between"
     },

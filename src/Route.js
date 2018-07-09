@@ -4,7 +4,6 @@ import {  StackNavigator, TabNavigator, DrawerNavigator,  } from 'react-navigati
 import Home from './screens/Home.js';
 import Detail from './screens/Detail.js';
 import User from './screens/User.js';
-import Menu from './screens/Menu.js';
 import Plant from './screens/Plant.js';
 import Login from './screens/Login.js';
 import Loading from './screens/Loading.js';
@@ -18,6 +17,8 @@ import ReportThongSo from './screens/ReportThongSo.js';
 import DatLichTuoiChiTiet from './screens/DatLichTuoiChiTiet.js';
 import TuyChinhGioTuoi from './screens/TuyChinhGioTuoi.js';
 import XacNhanThayDoiCayTrong from './screens/XacNhanThayDoiCayTrong.js';
+import ThayDoiMayBom from './screens/ThayDoiMayBom.js';
+import XacNhanThayDoiMayBom from './screens/XacNhanThayDoiMayBom.js';
 
 export const HomeStack = StackNavigator({
 	ManHinh_Home:{
@@ -57,10 +58,14 @@ export const HomeStack = StackNavigator({
 	ManHinh_XacNhanThayDoiCayTrong:{
 		screen: XacNhanThayDoiCayTrong
 	},
+	ManHinh_ThayDoiMayBom:{
+		screen: ThayDoiMayBom
+	},
+	ManHinh_XacNhanThayDoiMayBom:{
+		screen: XacNhanThayDoiMayBom
+	},
 }
 );
-
-
 
 
 export const PlantStack = StackNavigator({

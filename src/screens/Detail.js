@@ -10,7 +10,7 @@ export default class Detail extends Component{
 		headerTitleStyle: {
             textAlign: 'center',
             alignSelf: 'center',
-            fontFamily: 'MuseoSansRounded-300',
+            //fontFamily: 'MuseoSansRounded-300',
             fontWeight: '100',
 			justifyContent: 'space-between',
 			fontSize:17,
@@ -34,7 +34,7 @@ export default class Detail extends Component{
 	  componentDidMount() {
 		var key = this.props.navigation.state.params.keycambien;
 		firebaseApp.database().ref('cambien/'+key).update({
-			delay:500
+			delay:5
 		}).then(()=>{
 			firebaseApp.database().ref(`cambien/`+key).on('value', snapshot => {
 				let x = [];

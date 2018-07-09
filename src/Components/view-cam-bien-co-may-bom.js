@@ -21,6 +21,7 @@ export default class CamBienCoMayBom extends Component {
       mang: [],
       kieutuoi:'',
       keycambien: this.props.keycambien,
+      emailnguoidung:this.props.emailnguoidung,
       tenmaybom:'',
       keymaybom:'',
       trangthaimaybom:false,
@@ -89,9 +90,9 @@ _switchTrangThaiMayBom = () => {
         <View>
         <TouchableOpacity
             onPress={() => {
-            this.props.navigation.navigate("ManHinh_DatLichTuoiChiTiet", {keycambien:this.state.keycambien} );
+            this.props.navigation.navigate("ManHinh_DatLichTuoiChiTiet", {keycambien:this.state.keycambien, } );
             }}>
-        <View  style={{flexDirection: 'row', backgroundColor:'white', padding:15, height:40, justifyContent:'center',}}>
+        <View  style={{flexDirection: 'row', backgroundColor:'white', padding:15, height:50, justifyContent:'center',}}>
           <View style={{flex:0.7,  justifyContent: 'center',}} >
             <Text>Kiểu tưới</Text>
           </View>
@@ -108,7 +109,7 @@ _switchTrangThaiMayBom = () => {
         </View>       
         </TouchableOpacity>
           { this.state.kieutuoi == 'handmade' ? 
-            <View style={{flexDirection: 'row', backgroundColor:'white', padding:15, height:40, justifyContent:'center',borderTopWidth:0.5, borderColor:'#d1ccc0',}}>
+            <View style={{flexDirection: 'row', backgroundColor:'white', padding:15, height:50, justifyContent:'center',borderTopWidth:0.5, borderColor:'#d1ccc0',}}>
               <View style={{flex:0.7,  justifyContent: 'center',}} >
                 <Text>Bật/tắt máy bơm thủ công</Text>
               </View>
@@ -167,7 +168,10 @@ _switchTrangThaiMayBom = () => {
   render() {
     return (
       <View style={css.container}>
-        <TouchableOpacity>
+        <TouchableOpacity
+        onPress={() => {
+							this.props.navigation.navigate("ManHinh_ThayDoiMayBom", {navigation:this.props.navigation, keymaybom: this.state.keymaybom, keycambien:this.state.keycambien, emailnguoidung: this.props.emailnguoidung});
+							}}>
         <View style={css.row}>
           <View style={{flex:0.8, justifyContent: 'center', }} >
             <Text>{this.state.tenmaybom}</Text>
@@ -203,7 +207,7 @@ var css = StyleSheet.create({
       backgroundColor:'white', 
       padding:15, 
       marginBottom:10, 
-      height:40,
+      height:50,
       justifyContent:'center',
    },
    anh_thao_tac:{ 

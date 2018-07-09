@@ -1,6 +1,7 @@
 package com.demo;
 
 import com.facebook.react.ReactActivity;
+import com.RNFetchBlob.RNFetchBlobPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 
 public class MainActivity extends ReactActivity {

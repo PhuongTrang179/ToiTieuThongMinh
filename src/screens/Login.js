@@ -12,34 +12,27 @@ export default class Login extends Component{
 		}
 	}
 	
-	saveUser = async()=>{
+	saveUser = async(snapshot)=>{
 		try {
-			await AsyncStorage.setItem("@MyEmail:key", this.state.email);
+			AsyncStorage.setItem("thongtinnguoidung",  JSON.stringify(snapshot));
+			AsyncStorage.setItem("@MyEmail:key", this.state.email);
 		  } catch (error) {
 			console.log(error);
 		  }
-	}
-
-	getUser = async() =>{
-		try {
-			const value = await AsyncStorage.getItem('@MyEmail:key');
-			if (value !== null){
-				this.props.navigation.navigate('TabBar', {emailnguoidung:value});
-			}
-		  } catch (error) {
-			console.log(error);
-		  }
-	}
-
-	componentDidMount() {
-		this.getUser();
 	}
 	
 	dangNhap(){
 		firebaseApp.auth().signInWithEmailAndPassword(this.state.email,this.state.pass )
 		.then(()=>{
-			this.saveUser();
-			this.props.navigation.navigate('TabBar', {emailnguoidung:this.state.email});
+			var tmp = [];
+			firebaseApp.database().ref(`nguoidung`).orderByChild('email').equalTo(this.state.email).on('child_added', val => {
+					tmp.push({
+						anh: val.val().anhdaidien,
+						ten: val.val().ten,
+					});
+				this.saveUser(tmp);
+				this.props.navigation.navigate('TabBar', {emailnguoidung:this.state.email});
+			});
 		})
 		.catch(function(error) {
 			Alert.alert(

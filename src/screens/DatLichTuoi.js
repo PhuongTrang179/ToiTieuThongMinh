@@ -21,7 +21,7 @@ export default class DatLichTuoi extends Component {
     headerTitleStyle: {
       textAlign: "center",
       alignSelf: "center",
-      fontFamily: "MuseoSansRounded-300",
+      //fontFamily: "MuseoSansRounded-300",
       fontWeight: "300",
       justifyContent: "space-between"
     },
@@ -56,8 +56,8 @@ export default class DatLichTuoi extends Component {
     return (
       <View style={css.container}>
           {this.state.trangthaimaybom == true ? 
-          <CamBienCoMayBom keycambien={this.state.keycambien} navigation={this.props.navigation}/> : 
-          <DanhSachMayBom navigation={this.props.navigation} keycambien={this.state.keycambien} emailnguoidung={this.state.emailnguoidung}/>}
+          <CamBienCoMayBom keycambien={this.state.keycambien} navigation={this.props.navigation} emailnguoidung={this.state.emailnguoidung}/> : 
+          <DanhSachMayBom navigation={this.props.navigation}  keycambien={this.state.keycambien} emailnguoidung={this.state.emailnguoidung}/>}
       </View>
     );
   }

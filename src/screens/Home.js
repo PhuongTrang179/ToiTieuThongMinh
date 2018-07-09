@@ -3,6 +3,7 @@ import {View, Text, TouchableOpacity, StyleSheet, ScrollView, Image, FlatList, A
 import {firebaseApp} from './FirebaseConfig.js';
 import CamBienHoatDong from './../Components/view-cam-bien-hoat-dong.js';
 import CamBienChuaHoatDong from './../Components/view-cam-bien-chua-hoat-dong.js';
+console.disableYellowBox = true;
 
 export default class Home extends Component {
 
@@ -11,7 +12,7 @@ export default class Home extends Component {
         headerTitleStyle: {
             textAlign: 'center',
             alignSelf: 'center',
-            fontFamily: 'MuseoSansRounded-300',
+            //fontFamily: 'MuseoSansRounded-300',
             fontWeight: '300',
             justifyContent: 'space-between',
         },
@@ -89,8 +90,6 @@ export default class Home extends Component {
           })
       }
 
-      keyExtractor = (item) => item.id;
-
       CamBienChuaHoatDong(){
         if(this.state.chuacodulieu.length > 0)
            return <View >
@@ -101,7 +100,7 @@ export default class Home extends Component {
                         <FlatList
                             data={this.state.chuacodulieu}
                             extraData={this.state}
-                            keyExtractor = {this.keyExtractor}
+                            keyExtractor = {(item) => item.id}
                             renderItem={this.renderItemCamBienChuaHoatDong.bind(this)}
                         />
                     </View>
@@ -120,7 +119,7 @@ export default class Home extends Component {
                     <FlatList
                         data={this.state.mang}
                         extraData={this.state}
-                        keyExtractor = {this.keyExtractor}
+                        keyExtractor = {(item) => item.id}
                         renderItem={this.renderItemCamBienDaHoatDong.bind(this)}
                     />
                 </View>
@@ -129,7 +128,7 @@ export default class Home extends Component {
         return null;
      }
 
-     renderItemCamBienChuaHoatDong = ({item}) => {
+     renderItemCamBienChuaHoatDong = ({item, key}) => {
         return(
             <CamBienChuaHoatDong 
                 tencambien={item.tencambien} 
@@ -140,7 +139,7 @@ export default class Home extends Component {
         );
     }
 
-    renderItemCamBienDaHoatDong = ({item}) => {
+    renderItemCamBienDaHoatDong = ({item, key}) => {
         return(
             <CamBienHoatDong 
                 tencambien={item.tencambien} 
@@ -160,19 +159,12 @@ export default class Home extends Component {
         return (
             <ScrollView>
                 <View style={css.container}>
-                     { this.CamBienChuaHoatDong() }
+                    { this.CamBienChuaHoatDong() }
                 
                     { this.CamBienDaHoatDong() }
                  
                 </View>
             </ScrollView>
-            /*<View style={{flex:1, justifyContent: 'center', alignItems: 'center',backgroundColor: "white",}}>
-                <Text>Home</Text>
-                <TouchableOpacity style={{backgroundColor: "#2ecc71",}}
-                    onPress={()=>{this.props.navigation.navigate('ManHinh_Detail',{thamso:'Hello'})}} >
-                    <Text style={{fontSize:20, padding:10}}>Go To Detail</Text>
-                </TouchableOpacity>
-            </View>*/
         );
     }
 }

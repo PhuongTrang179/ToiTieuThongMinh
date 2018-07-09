@@ -19,7 +19,7 @@ export default class DatLichTuoiChiTiet extends Component {
     headerTitleStyle: {
       textAlign: "center",
       alignSelf: "center",
-      fontFamily: "MuseoSansRounded-300",
+      //fontFamily: "MuseoSansRounded-300",
       fontWeight: "300",
       justifyContent: "space-between"
     },
@@ -141,7 +141,7 @@ var css = StyleSheet.create({
     flexDirection: 'row', 
     backgroundColor:'white', 
     padding:15, 
-    height:40,
+    height:50,
     justifyContent:'center',
     borderBottomWidth:0.5, 
     borderColor:'#d1ccc0',

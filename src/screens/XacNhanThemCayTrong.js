@@ -18,7 +18,7 @@ export default class XacNhanThemCayTrong extends Component {
     headerTitleStyle: {
       textAlign: "center",
       alignSelf: "center",
-      fontFamily: "MuseoSansRounded-300",
+      //fontFamily: "MuseoSansRounded-300",
       fontWeight: "300",
       justifyContent: "space-between"
     },
@@ -116,8 +116,9 @@ export default class XacNhanThemCayTrong extends Component {
 }
 
 var css = StyleSheet.create({
-    btn:{margin: 8,borderRadius:10, backgroundColor: '#02b875',  justifyContent: "center", alignItems: "center"},
+    btn:{margin: 8, padding:5,borderRadius:10, backgroundColor: '#02b875',  justifyContent: "center", alignItems: "center"},
     btn_text:{
       padding: 5,
+      color:'white'
     }
 });

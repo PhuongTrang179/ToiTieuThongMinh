@@ -53,7 +53,7 @@ export default class CamBienChiTiet extends Component{
 						</TouchableOpacity>
 						<TouchableOpacity
 							onPress={() => {
-							this.props.navigation.navigate("ManHinh_DatLichTuoi", {keycambien:this.props.keycambien, tencambien:this.props.tencambien, emailnguoidung:this.props.emailnguoidung});
+							this.props.navigation.navigate("ManHinh_DatLichTuoi", {keycambien:this.props.keycambien, emailnguoidung:this.props.emailnguoidung});
 							}}>
 							<View style={css.col_thao_tac} >
 								<Image source={require('./../icons/icon_calendar.png')} style={css.anh_thao_tac}/>
@@ -142,10 +142,10 @@ var css = StyleSheet.create({
    },
    col_header:{ flexDirection: 'column', padding:15, borderBottomWidth:0.5, borderColor:'#d1ccc0',  justifyContent: 'center', alignItems: 'center',},
    col_body:{ flexDirection: 'column',  marginTop: 10, },
-   anh_dai_dien:{ width: 70, height: 70,borderRadius: 50,},
+   anh_dai_dien:{ width: 70, height: 70,borderRadius: 50,overflow: 'hidden'},
    ten_cam_bien:{ fontSize: 16, color: '#006266', marginTop:5,},
    ngay_pin:{ fontSize: 12, color: '#757575', marginTop:5},
-   div_thao_tac:{flex: 0.2, flexDirection: 'row',},
+   div_thao_tac:{flex: 0.2, flexDirection: 'row', marginBottom:5, marginTop:5},
    anh_thao_tac:{ width: 30, height: 30,borderRadius: 50,marginTop:10, marginLeft:20, marginRight:20,},
    col_thao_tac:{justifyContent: 'center', alignItems: 'center',},
    ten_thao_tac:{fontSize:10},

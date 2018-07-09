@@ -22,7 +22,7 @@ export default class TuyChinhGioTuoi extends Component {
     headerTitleStyle: {
       textAlign: "center",
       alignSelf: "center",
-      fontFamily: "MuseoSansRounded-300",
+      //fontFamily: "MuseoSansRounded-300",
       fontWeight: "300",
       justifyContent: "space-between"
     },
@@ -50,10 +50,11 @@ export default class TuyChinhGioTuoi extends Component {
         firebaseApp.database().ref('cambien/'+key+'/datlich').update({
           tansuat: 'hangngay',
         }).then(()=>{
-          firebaseApp.database().ref('cambien/'+key+'/datlich/thoidiemtuoi/').push({
-            giotuoi:this.GetTime(),
-            thoigiantuoi: '60'
-          });
+          // firebaseApp.database().ref('cambien/'+key+'/datlich/thoidiemtuoi/').push({
+          //   giotuoi:this.GetTime(),
+          //   thoigiantuoi: '60',
+          //   ngay: new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate()
+          // });
         })
         .catch(function(error) {
           Alert.alert(
@@ -91,7 +92,8 @@ export default class TuyChinhGioTuoi extends Component {
   themItemGioTuoi = () =>{
     firebaseApp.database().ref('cambien/'+this.state.keycambien+'/datlich/thoidiemtuoi/').push({
       giotuoi:this.GetTime(),
-      thoigiantuoi: '60'
+      thoigiantuoi: '60',
+      ngay: moment(new Date()).format('YYYY-MM-DD HH:mm:ss')
     });
   }
 
@@ -254,10 +256,10 @@ export default class TuyChinhGioTuoi extends Component {
          <Dialog
             visible={this.state.showDialog}
             onTouchOutside={() => this.closeDialog()}
-            contentStyle={{ justifyContent: 'center', alignItems: 'center',padding:5}}
+            contentStyle={{ justifyContent: 'center', alignItems: 'center',}}
             animationType="fade">
-            <View style={{height:116, width:'100%', flexDirection: 'column',alignItems: 'center',}}>
-              <View style={{flex:0.4, flexDirection: 'row',  alignItems: 'center',}}>
+            <View style={{height:100, width:'100%', flexDirection: 'column',alignItems: 'center',}}>
+              <View style={{flex:0.5, flexDirection: 'row',  alignItems: 'center',}}>
                 <TextInput
                   style={css.textinput}
                   keyboardType = 'numeric'
@@ -268,7 +270,7 @@ export default class TuyChinhGioTuoi extends Component {
                 />
                 <Text>giây</Text>
               </View>
-              <View style={{flex:0.6,  alignItems: 'center', marginTop:5}}>
+              <View style={{flex:0.5,  alignItems: 'center', }}>
                 <TouchableOpacity onPress={() => this.changeThoiGianTuoi()} style={css.btnThoiGianTuoi} >
                   <Text style={{color:'white'}} >Lưu</Text>
                 </TouchableOpacity>
@@ -290,15 +292,13 @@ var css = StyleSheet.create({
     backgroundColor:'white', 
     padding:15, 
     marginBottom:10, 
-    height:40,
+    height:50,
     justifyContent:'center',
  },
   pickerStyle: {
     width:'100%'
   },
   textinput:{
-		borderColor: 'gray', borderWidth: 1,
-		borderRadius: 10,
 		margin: 8,
 		padding:5,
 		paddingLeft:10,
