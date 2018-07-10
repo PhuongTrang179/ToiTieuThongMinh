@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text, TouchableOpacity,Image, ScrollView, StyleSheet, ImageBackground, Alert} from 'react-native';
+import {View, Text, TouchableOpacity,Image, ScrollView, StyleSheet, ImageBackground, ActivityIndicator} from 'react-native';
 import {firebaseApp} from './FirebaseConfig.js';
 import CamBienChiTiet from './../Components/view-cam-bien-chi-tiet.js';
 
@@ -27,14 +27,15 @@ export default class Detail extends Component{
 		this.state = {
 			key: this.props.navigation.state.params.keycambien,
 			emailnguoidung: this.props.navigation.state.params.emailnguoidung,
-			mang: []
+			mang: [],
+			st: false
 		};
 	  }
 
 	  componentDidMount() {
 		var key = this.props.navigation.state.params.keycambien;
 		firebaseApp.database().ref('cambien/'+key).update({
-			delay:5
+			delay:10
 		}).then(()=>{
 			firebaseApp.database().ref(`cambien/`+key).on('value', snapshot => {
 				let x = [];
@@ -87,7 +88,7 @@ export default class Detail extends Component{
 						});
 					});
 				}
-				 this.setState({mang:x});
+				 this.setState({mang:x, st:true});
 			});
 		  })
 		  .catch(function(error) {
@@ -150,12 +151,22 @@ export default class Detail extends Component{
 		return x;
 	}
 
+	Hienthi(){
+		if(this.state.st)
+		{
+			return (<ImageBackground source={require('./../images/bg-anh.jpg')}
+						imageStyle={{resizeMode: 'stretch'}}  style={css.bg}   > 		
+							{this.renderItem()}	
+					</ImageBackground>)
+		}
+		else{
+			return(<View style={{alignItems:"center"}} ><ActivityIndicator></ActivityIndicator></View>);
+		}
+	}
+
 	render(){
 		return(
-			<ImageBackground source={require('./../images/bg-anh.jpg')}
-			 		 imageStyle={{resizeMode: 'stretch'}}  style={css.bg}   > 			
-				{this.renderItem()}
-			</ImageBackground>
+			this.Hienthi()
 		);
 	}
 }

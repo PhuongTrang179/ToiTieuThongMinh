@@ -7,7 +7,8 @@ import {
   ScrollView,
   Image,
   FlatList,
-  Alert
+  Alert,
+  ActivityIndicator
 } from "react-native";
 import { firebaseApp } from "./FirebaseConfig.js";
 import ViewCayTrongChiTiet from "./../Components/view-cay-trong-chi-tiet.js";
@@ -27,30 +28,27 @@ export default class CayTrongChiTiet extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      mang: [],
-      refresh: false,
-    };
   }
   
   layDuLieuCayTrong = (key)=>{
     var x = [];
     firebaseApp.database().ref('caytrong/'+key).on('value', function(snapshot) {
         x.push(<ViewCayTrongChiTiet 
-                anhsang= {snapshot.val().anhsangbatdau +" - "+snapshot.val().anhsangketthuc} 
-                doam= {snapshot.val().doambatdau +" - "+snapshot.val().doamketthuc} 
-                nhietdo= {snapshot.val().nhietdobatdau +" - "+snapshot.val().nhietdoketthuc} 
-                domaumo= {snapshot.val().domaumobatdau +" - "+snapshot.val().domaumoketthuc} 
-                saubenh= {snapshot.val().cacloaisaubenh}
-                bonphan= {snapshot.val().bonphan}
-                gioithieu = {snapshot.val().gioithieu}
-                hocaytrong = {snapshot.val().hocaytrong}
-                hinhanhcaytrong = {snapshot.val().hinhanhcaytrong}
-                loaicaytrong = {snapshot.val().loaicaytrong}
-                nguongoccaytrong = {snapshot.val().nguongoccaytrong}
-                tencaytrong={snapshot.val().tencaytrong}  
-                thoigiancaytrong = {snapshot.val().thoigiancaytrong}
+                  anhsang= {snapshot.val().anhsangbatdau +" - "+snapshot.val().anhsangketthuc} 
+                  doam= {snapshot.val().doambatdau +" - "+snapshot.val().doamketthuc} 
+                  nhietdo= {snapshot.val().nhietdobatdau +" - "+snapshot.val().nhietdoketthuc} 
+                  domaumo= {snapshot.val().domaumobatdau +" - "+snapshot.val().domaumoketthuc} 
+                  saubenh= {snapshot.val().cacloaisaubenh}
+                  bonphan= {snapshot.val().bonphan}
+                  gioithieu = {snapshot.val().gioithieu}
+                  hocaytrong = {snapshot.val().hocaytrong}
+                  hinhanhcaytrong = {snapshot.val().hinhanhcaytrong}
+                  loaicaytrong = {snapshot.val().loaicaytrong}
+                  nguongoccaytrong = {snapshot.val().nguongoccaytrong}
+                  tencaytrong={snapshot.val().tencaytrong}  
+                  thoigiancaytrong = {snapshot.val().thoigiancaytrong}
                 />);
+                
       });
     return  x;
   }
@@ -59,7 +57,7 @@ export default class CayTrongChiTiet extends Component {
     var a = this.props.navigation.state.params.keycaytrong ;
     return (
       <ScrollView>
-        {this.layDuLieuCayTrong(a)}
+        <View>{this.layDuLieuCayTrong(a)}</View>
       </ScrollView>
     );
   }

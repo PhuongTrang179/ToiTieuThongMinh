@@ -7,7 +7,8 @@ import {
 	ScrollView,
 	Image,
 	FlatList,
-	Alert
+  Alert,
+  ActivityIndicator
   } from "react-native";
   import { firebaseApp } from "./FirebaseConfig.js";
   import CayTrong from "./../Components/view-danh-sach-cay-trong.js";
@@ -28,25 +29,25 @@ export default class Plant extends Component {
     super(props);
     this.state = {
       mang: [],
-      refresh: false
+      st: false
     };
   }
 
   componentDidMount() {
     firebaseApp
-      .database()
-      .ref(`caytrong`)
-      .on("value", snapshot => {
-        let dl = [];
-        snapshot.forEach(function(data) {
-          dl.push({
-            id: data.key,
-            tencaytrong: data.val().tencaytrong,
-            anhcaytrong: data.val().hinhanhcaytrong
-          });
+    .database()
+    .ref(`caytrong`)
+    .on("value", snapshot => {
+      let dl = [];
+      snapshot.forEach(function(data) {
+        dl.push({
+          id: data.key,
+          tencaytrong: data.val().tencaytrong,
+          anhcaytrong: data.val().hinhanhcaytrong
         });
-        this.setState({ mang: dl });
       });
+      this.setState({ mang: dl, st:true });
+    });
   }
 
   DanhSachCayTrong() {
@@ -79,7 +80,10 @@ export default class Plant extends Component {
   render() {
     return (
       <ScrollView>
-        <View style={css.container}>{this.DanhSachCayTrong()}</View>
+        {this.state.st ? 
+          <View style={css.container}>{this.DanhSachCayTrong()}</View>
+          : <View style={{alignItems:"center"}} ><ActivityIndicator></ActivityIndicator></View>
+        }
       </ScrollView>
     );
   }

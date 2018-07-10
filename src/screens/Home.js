@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text, TouchableOpacity, StyleSheet, ScrollView, Image, FlatList, Alert} from 'react-native';
+import {View, Text, TouchableOpacity, StyleSheet, ScrollView, Image, FlatList, Alert, ActivityIndicator} from 'react-native';
 import {firebaseApp} from './FirebaseConfig.js';
 import CamBienHoatDong from './../Components/view-cam-bien-hoat-dong.js';
 import CamBienChuaHoatDong from './../Components/view-cam-bien-chua-hoat-dong.js';
@@ -22,7 +22,8 @@ export default class Home extends Component {
 		super(props)
 		this.state = {
             mang: [],
-            chuacodulieu:[]
+            chuacodulieu:[],
+            st: false
 		}
     }
 
@@ -86,7 +87,7 @@ export default class Home extends Component {
                     
                 }
             });
-            this.setState({mang:dl, chuacodulieu:chuacodl});
+            this.setState({mang:dl, chuacodulieu:chuacodl, st:true});
           })
       }
 
@@ -158,12 +159,12 @@ export default class Home extends Component {
     render() {
         return (
             <ScrollView>
-                <View style={css.container}>
-                    { this.CamBienChuaHoatDong() }
-                
-                    { this.CamBienDaHoatDong() }
-                 
-                </View>
+                {this.state.st ? 
+                    <View style={css.container}>
+                        { this.CamBienChuaHoatDong() }                    
+                        { this.CamBienDaHoatDong() }                 
+                    </View>
+                    : <View style={{alignItems:"center"}} ><ActivityIndicator></ActivityIndicator></View>}
             </ScrollView>
         );
     }
